@@ -6,6 +6,8 @@ public class BirdMovement : MonoBehaviour
 {
     public GameManager gameManager;
     public float velocity = 1;
+    public AudioSource audio;
+    public AudioClip  hit,point,wing;
     private Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
@@ -18,14 +20,18 @@ public class BirdMovement : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            audio.PlayOneShot(wing);
             rb.velocity = Vector2.up*velocity;
+
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        audio.PlayOneShot(hit);
         gameManager.GameOver();
     }
     void OnTriggerEnter2D(Collider2D col){
+        audio.PlayOneShot(point);
         gameManager.addScore();
     }
 }
